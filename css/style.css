@@ -1,0 +1,250 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+#header{
+	display: flex;
+	box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	background-color: white;
+	z-index: 2;
+}
+
+.logo{
+	width: 160px;
+	height: 50px;
+	margin-left: 50px;
+	margin-top: 16px;
+}
+
+#menu{
+	width: 80%;
+}
+
+#menu li{
+	list-style: none;
+	padding: 10px 20px 10px 5px;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+#menu ul{
+	display: flex;
+	justify-content: space-evenly;
+	margin-top:10px;
+}
+
+#menu a{
+	color: black;
+	transition: color 0.3s ease;
+	text-decoration: none;
+	font-family: 'Patua One', cursive;
+}
+
+#menu a:hover{
+	color: #b3b3cc;
+	text-decoration: none;
+}
+
+#menu img{
+	width: 40px;
+	height: 40px;
+	margin-top: -15px;
+}
+
+#searchBar{
+	background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/490px-Magnifying_glass_icon.svg.png");
+	background-repeat:no-repeat;
+	background-size: 25px 25px;
+	background-position: 10px 7px;
+	padding-left: 50px;
+	width: 82%;
+	font-size: 18px;
+}
+
+#searchDiv{
+	margin: 140px 20px 30px 50px;
+	display: flex;
+}
+
+#searchDiv button{
+	margin-left: 20px;
+	width: 14%;
+	color: white;
+	font-weight: bold;
+	letter-spacing: 2px;
+	font-size: 20px;
+	margin-top: -2px;
+}
+
+#carouselExampleControls{
+	width: 90%;
+	margin: 0 auto;
+	z-index: 1;
+}
+
+.carousel-inner img{
+	height: 517px;
+}
+
+h1{
+	font-family: 'Pacifico', cursive;
+	margin: 30px 0px 20px 50px;
+	text-shadow: 2px 2px 5px #ffff33;
+}
+
+.RestDish{
+	display: flex;
+	justify-content: space-evenly;
+	margin: 0px 40px;
+}
+
+.Dishes{
+	margin: 0px 18px 0px 18px;
+}
+
+.Dishes img{
+	width: 380px;
+	height: 300px;
+	margin-top:5px;
+	border-radius: 10px;
+}
+
+.Restaurant-Container a{
+	text-decoration: none;
+	color: black;
+}
+
+.Restaurant-Container a:hover{
+	color: #7c6f7c;
+}
+
+h2{
+	font-family: 'Overpass', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+h3{
+	font-weight: bold;
+	margin-top: 5px;
+}
+
+.Dishes span{
+	height: 28px;
+	font-size: 18px;
+	font-weight: normal;
+	margin-top: -6px;
+	margin-left: 5px;
+}
+
+footer{
+	display: flex;
+	margin-top: 20px;
+}
+
+footer img{
+	width: 50px;
+	height: 50px;
+	margin: 20px;
+}
+
+footer div{
+	padding: 20px 0 0 50px;
+	width: 33%;
+	background-color: #c2c2d6;
+	font-size: 15px;
+	line-height: 30px;
+	padding-bottom: 20px;
+}
+
+footer a{
+	color: black;
+}
+
+footer a:hover{
+	text-decoration: none;
+	color: #008fb3;
+}
+
+footer li{
+	list-style: none;
+}
+
+.text-center{
+	font-size: 30px;
+	margin-top: 15px;
+	font-family: 'Overpass', sans-serif;
+}
+
+.textLoginMargin{
+	font-size: 30px;
+	margin-top: 140px;
+	font-family: 'Overpass', sans-serif;
+	text-align: center;
+}
+
+#profile{
+	margin: 140px 20px 20px 150px;
+	position: relative;
+}
+
+#profileUpload{
+	position: absolute;
+	right: 40px;
+	top: 0;
+}
+
+#profileUpload img{
+	height: 250px;
+	width: 250px;
+	margin-bottom:10px;
+}
+
+.profileRow{
+	display: block;
+}
+
+.detailLabel{
+	font-size: 30px;
+	padding: 5px;
+	font-family: 'Dokdo', cursive;
+}
+
+.profileInput{
+	font-size: 20px;
+	font-family: 'Nunito', sans-serif;
+	padding-left: 5px;
+}
+
+.profileForm{
+	margin-bottom: 10px;
+}
+
+.invalidUpdate{
+	color: red;
+	font-size: 20px;
+	font-family: 'Dokdo', cursive;
+	margin-left: 5px;
+	display: none;
+}
+
+.updateSuccessLabel{
+	margin-left:20px;
+	font-size: 25px;
+	color: green;
+	font-family: 'Dokdo', cursive;
+	display: none;
+}
+
+#profilePictureLabel{
+	font-size: 18px;
+	font-family: 'Nunito', sans-serif;
+}
+/* font-family: 'Dokdo', cursive;
+font-family: 'Nunito', sans-serif;*/

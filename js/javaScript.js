@@ -1,0 +1,175 @@
+$(document).ready(function() {
+	var passwordAble = "false", phoneAble = "false", postcodeAble = "false", usernameAble = "false", emailAble = "false";
+	function registerButtonAble(){
+		if(passwordAble == "true" && phoneAble == "true" && postcodeAble == "true" && usernameAble == "true" && emailAble == "true"){
+			$("#registerButton").attr("disabled", false);
+		} else{
+			$("#registerButton").attr("disabled", true);
+		}
+	}
+	
+	$('#inputPassword4').blur(function() {
+		var password = $(this).val();
+		
+		if(password.length == 0){
+			$('#inputPassword4').css("border-color","");
+			document.getElementById("passwordInvalid").innerHTML = "";
+			passwordAble = "false";
+			return;
+		} else{
+			var xmlhttp;
+			if (window.XMLHttpRequest){
+				xmlhttp=new XMLHttpRequest();
+			}
+			else{
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					if(password.length < 8 || password.length > 16 || !/\d/.test(password) || !/[a-z]+/.test(password)){
+						$('#inputPassword4').css("border-color","red");
+						document.getElementById("passwordInvalid").innerHTML=xmlhttp.responseText;
+						passwordAble = "false";
+						registerButtonAble();
+					} else{
+						$('#inputPassword4').css("border-color","");
+						document.getElementById("passwordInvalid").innerHTML = "";
+						passwordAble = "true";
+						registerButtonAble();
+					}
+				}
+			}
+			xmlhttp.open("GET", "test.php?p=inputPassword4", true);
+			xmlhttp.send();
+		}
+	});
+	
+	$('#inputPhone4').blur(function() {
+		var tel = $(this).val();
+		
+		if(tel.length != 10 || !/^\d+$/.test(tel)){
+			$('#inputPhone4').css("border-color","red");
+			$('#PhoneInvalid').css("display","block");
+			phoneAble = "false";
+			registerButtonAble();
+		} else{
+			$('#inputPhone4').css("border-color","");
+			$('#PhoneInvalid').css("display","none");
+			phoneAble = "true";
+			registerButtonAble();
+		}
+	});
+	
+	$('#Postcode').blur(function() {
+		var postcode = $(this).val();
+		
+		if(postcode.length != 4){
+			$('#Postcode').css("border-color","red");
+			$('#PostcodeInvalid').css("display","block");
+			postcodeAble = "false";
+			registerButtonAble();
+		} else{
+			$('#Postcode').css("border-color","");
+			$('#PostcodeInvalid').css("display","none");
+			postcodeAble = "true";
+			registerButtonAble();
+		}
+	});
+	
+	function passwordStrength(){
+		var passwordCheck = document.getElementById("inputPassword4");
+		passwordCheck.addEventListener('keyup', function(){
+			checkPassword(passwordCheck.value);
+		})
+	}
+	
+	function checkPassword(password){
+		var progressBar = document.getElementById("passwordStrength");
+		var strength = 0;
+		if(password.length > 8){
+			strength +=1;
+		}
+		if(password.match(/[a-z]+/)){
+			strength +=1;
+		}
+		if(password.match(/[A-Z]/)){
+			strength +=1;
+		}
+		if(password.match(/[0-9]/)){
+			strength +=1;
+		}
+		if(password.match(/[~<>?]+/)){
+			strength +=1;
+		}
+		if(password.match(/[!@#$%^&*()]+/)){
+			strength +=1;
+		}
+		switch(strength){
+			case 0:
+				progressBar.style = "width: 0%";
+				break;
+			case 1:
+				progressBar.style = "width: 20%";
+				break;
+			case 2:
+				progressBar.style = "width: 40%";
+				break;
+			case 3:
+				progressBar.style = "width: 60%";
+				break;
+			case 4:
+				progressBar.style = "width: 80%";
+				break;
+			case 5:
+				progressBar.style = "width: 100%";
+				break;
+		}
+	}
+	passwordStrength();
+	
+	$('#inputUsername4').blur(function(){
+		var username = $(this).val();
+		$.ajax({
+			url:'registerCheck.php',
+			method:'POST',
+			data:{user_name:username},
+			success:function(data){
+				if(data == '1'){
+					$('#inputUsername4').css("border-color","red");
+					document.getElementById("usernameToken").innerHTML = "Username already be token";
+					usernameAble = "false";
+					registerButtonAble();
+				} else{
+					$('#inputUsername4').css("border-color","");
+					document.getElementById("usernameToken").innerHTML = "";
+					usernameAble = "true";
+					registerButtonAble();
+				}
+			}
+		})
+		
+	});
+	
+	$('#inputEmail4').blur(function(){
+		var email = $(this).val();
+		$.ajax({
+			url:'registerCheck.php',
+			method:'POST',
+			data:{user_email:email},
+			success:function(data){
+				if(data == '1'){
+					$('#inputEmail4').css("border-color","red");
+					document.getElementById("emailToken").innerHTML = "Email address already be token";
+					emailAble = "false";
+					registerButtonAble();
+				} else{
+					$('#inputEmail4').css("border-color","");
+					document.getElementById("emailToken").innerHTML = "";
+					emailAble = "true";
+					registerButtonAble();
+				}
+			}
+		})
+		
+	});
+});
