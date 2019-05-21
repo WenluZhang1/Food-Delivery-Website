@@ -9,6 +9,11 @@
 	</head>
 	
 	<body>
+		<?php if (isset($_SESSION['registrateFailed'])): ?>
+			<p id="registDone">Registration failed. The detail information you entered not satisfy requirements. Please double check the red messages</p>
+			<?php unset($_SESSION['registrateFailed']);?>
+		<?php endif ?>
+
 		<div class="register-form">
 			<form action="<?php echo base_url();?>Main_controller/registration" method="POST">
 				<h1>Registration Form</h1>

@@ -10,8 +10,11 @@
 	
 	<body>
 		<?php if (isset($_SESSION["registered"])): ?>
-			<p id="registDone">You have registered in a new account! Try to log in now!</p>
+			<p id="registDone">You have registered in a new account! Vertify your email and try to log in now!</p>
 			<?php unset($_SESSION["registered"]);?>
+		<?php elseif (isset($_SESSION['unvertify'])): ?>
+			<p id="registDone">Please vertify your email first before login</p>
+			<?php unset($_SESSION['unvertify']);?>
 		<?php endif ?>
 		
 		<div class="sign-on-form">

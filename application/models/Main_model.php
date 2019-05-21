@@ -13,6 +13,8 @@
 
 			if (isset($row)) {
 				if($row['activated'] == 0){
+					$_SESSION['unvertify'] = true;
+
 					return FALSE;
 				}
 				if($password == $row['password']){
@@ -38,8 +40,14 @@
 				'state' => $state,
 				'postCode' => $postcode
 			);
-			return $this->db->insert('users', $data);
+			$userValid = $this->check_signup_username($username);
+			$emailValid = $this->check_signup_email($email);
+			if($userValid == 2 && $emailValid == 2){
+				return $this->db->insert('users', $data);
+			}else{
+				return 0;
 			}
+		}
 
 
 		public function check_signup_username($username){

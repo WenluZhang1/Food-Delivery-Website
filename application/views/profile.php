@@ -21,7 +21,7 @@
 					<li><a href="https://uq.edu.au/">Delivery</a></li>
 					<li><a href="<?php echo base_url(); ?>Main_controller/loadMyOrder">My Order</a></li>
 					<li><a href="https://uq.edu.au/">Contact Us</a></li>
-					<li><a href="locationPage.php"><img src="<?php echo base_url(); ?>images/Location-symbol.png" alt="Location icon"></a></li>
+					<li><a href="https://uq.edu.au/"><img src="<?php echo base_url(); ?>images/Location-symbol.png" alt="Location icon"></a></li>
 					<?php if (isset($_SESSION["username"])): ?>
 						<li><a href="profile.php"><img src="<?php echo base_url(); ?>images/Account.png" alt="Account icon"></a></li>
 					<?php else: ?>

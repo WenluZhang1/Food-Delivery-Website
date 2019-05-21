@@ -8,4 +8,6 @@ All tables used in phpMyAdmin is stored in the "sql" file
 
 The website able to achieve login, registration, cookie, email vertification, dynamic page display etc. functions.
 
+The code for controllers, models, views is under "application" folder.
+
 For the email vertification function, it happens after you registrate a new account. If your email address used for registration is unofficial, it might takes long time to receive the vertification email.

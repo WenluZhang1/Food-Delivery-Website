@@ -106,9 +106,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$postcodeNew = $this->input->post('postcode');
 
 			$newAccount = $this->main_model->new_account($usernameNew, $passwordNew, $phoneNew, $emailNew, $addressNew, $suburbNew, $stateNew, $postcodeNew);
-			$_SESSION['registered'] = true;
-			$this->sendEmail($usernameNew, $emailNew);
-			redirect(base_url() . "Main_controller/loadSignin");
+			if($newAccount == 0){
+				$_SESSION['registrateFailed'] = true;
+				redirect(base_url() . "Main_controller/loadRegistration");
+			} else{
+				$_SESSION['registered'] = true;
+				$this->sendEmail($usernameNew, $emailNew);
+				redirect(base_url() . "Main_controller/loadSignin");
+			}
 		}
 
 		public function logout() {
