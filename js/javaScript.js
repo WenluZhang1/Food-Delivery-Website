@@ -1,12 +1,4 @@
-$(document).ready(function() {
-	var passwordAble = "false", phoneAble = "false", postcodeAble = "false", usernameAble = "false", emailAble = "false";
-	function registerButtonAble(){
-		if(passwordAble == "true" && phoneAble == "true" && postcodeAble == "true" && usernameAble == "true" && emailAble == "true"){
-			$("#registerButton").attr("disabled", false);
-		} else{
-			$("#registerButton").attr("disabled", true);
-		}
-	}
+$(document).ready(function () {
 	
 	$('#inputPassword4').blur(function() {
 		var password = $(this).val();
@@ -14,7 +6,6 @@ $(document).ready(function() {
 		if(password.length == 0){
 			$('#inputPassword4').css("border-color","");
 			document.getElementById("passwordInvalid").innerHTML = "";
-			passwordAble = "false";
 			return;
 		} else{
 			var xmlhttp;
@@ -29,17 +20,13 @@ $(document).ready(function() {
 					if(password.length < 8 || password.length > 16 || !/\d/.test(password) || !/[a-z]+/.test(password)){
 						$('#inputPassword4').css("border-color","red");
 						document.getElementById("passwordInvalid").innerHTML=xmlhttp.responseText;
-						passwordAble = "false";
-						registerButtonAble();
 					} else{
 						$('#inputPassword4').css("border-color","");
 						document.getElementById("passwordInvalid").innerHTML = "";
-						passwordAble = "true";
-						registerButtonAble();
 					}
 				}
 			}
-			xmlhttp.open("GET", "test.php?p=inputPassword4", true);
+			xmlhttp.open("GET", "https://infs3202-35966830.uqcloud.net/Main_controller/signup_password", true);
 			xmlhttp.send();
 		}
 	});
@@ -50,13 +37,9 @@ $(document).ready(function() {
 		if(tel.length != 10 || !/^\d+$/.test(tel)){
 			$('#inputPhone4').css("border-color","red");
 			$('#PhoneInvalid').css("display","block");
-			phoneAble = "false";
-			registerButtonAble();
 		} else{
 			$('#inputPhone4').css("border-color","");
 			$('#PhoneInvalid').css("display","none");
-			phoneAble = "true";
-			registerButtonAble();
 		}
 	});
 	
@@ -65,14 +48,10 @@ $(document).ready(function() {
 		
 		if(postcode.length != 4){
 			$('#Postcode').css("border-color","red");
-			$('#PostcodeInvalid').css("display","block");
-			postcodeAble = "false";
-			registerButtonAble();
+			$('#PostcodeInvalid').css("display", "block");
 		} else{
 			$('#Postcode').css("border-color","");
 			$('#PostcodeInvalid').css("display","none");
-			postcodeAble = "true";
-			registerButtonAble();
 		}
 	});
 	
@@ -130,20 +109,16 @@ $(document).ready(function() {
 	$('#inputUsername4').blur(function(){
 		var username = $(this).val();
 		$.ajax({
-			url:'registerCheck.php',
+			url: 'https://infs3202-35966830.uqcloud.net/Main_controller/signup_username',
 			method:'POST',
 			data:{user_name:username},
 			success:function(data){
 				if(data == '1'){
 					$('#inputUsername4').css("border-color","red");
 					document.getElementById("usernameToken").innerHTML = "Username already be token";
-					usernameAble = "false";
-					registerButtonAble();
 				} else{
 					$('#inputUsername4').css("border-color","");
 					document.getElementById("usernameToken").innerHTML = "";
-					usernameAble = "true";
-					registerButtonAble();
 				}
 			}
 		})
@@ -153,20 +128,16 @@ $(document).ready(function() {
 	$('#inputEmail4').blur(function(){
 		var email = $(this).val();
 		$.ajax({
-			url:'registerCheck.php',
+			url:'https://infs3202-35966830.uqcloud.net/Main_controller/signup_email',
 			method:'POST',
 			data:{user_email:email},
 			success:function(data){
 				if(data == '1'){
 					$('#inputEmail4').css("border-color","red");
 					document.getElementById("emailToken").innerHTML = "Email address already be token";
-					emailAble = "false";
-					registerButtonAble();
 				} else{
 					$('#inputEmail4').css("border-color","");
 					document.getElementById("emailToken").innerHTML = "";
-					emailAble = "true";
-					registerButtonAble();
 				}
 			}
 		})

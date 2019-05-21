@@ -98,9 +98,8 @@ h1{
 	text-shadow: 2px 2px 5px #ffff33;
 }
 
-.RestDish{
+.RestDish {
 	display: flex;
-	justify-content: space-evenly;
 	margin: 0px 40px;
 }
 
@@ -246,5 +245,103 @@ footer li{
 	font-size: 18px;
 	font-family: 'Nunito', sans-serif;
 }
+
+#restaurant_detail {
+	display: flex;
+	margin-top: 90px;
+	padding: 40px 0px 0px 150px;
+	font-size: 30px;
+	font-family: 'Dokdo', cursive;
+	font-weight: bold;
+	width: 100%;
+	height: 250px;
+}
+
+.restaurant_img {
+	height: 200px;
+	width: 600px;
+	padding-left: 150px;
+}
+
+#dishes label {
+	font-family: 'Overpass', sans-serif;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+#search_keyword {
+	font-family: 'Overpass', sans-serif;
+	font-size: 35px;
+	font-weight: bold;
+	padding-left:60px;
+}
+
+#dishes {
+	margin: 10px 0px 0px 100px;
+}
+
+#dishes p {
+	font-family: 'Overpass', sans-serif;
+	font-size: 20px;
+}
+
+.dish_infomration {
+	display: flex;
+	margin: 10px 0px 0px 100px;
+}
+
+.dish_details {
+	padding-right: 80px;
+}
+
+.addDish_form {
+	width: 50%;
+	margin: 0 auto;
+}
+
+#dishNameInvalid {
+	font-size: 15px;
+	color: red;
+}
+
+#commentArea {
+	width: 70%;
+	margin: 0 auto;
+}
+
+.comments label {
+	font-family: 'Nunito', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.comments {
+	border: 1px solid black;
+	padding: 10px;
+	margin: 10px;
+}
+
+#myOrderContainer {
+	margin: 140px 0px 0px 150px;
+}
+
+.orders {
+	display: flex;
+}
+
+.orders button {
+	margin-left: 100px;
+}
+
+.orders_information p {
+	font-family: 'Dokdo', cursive;
+	font-size: 20px;
+	font-weight: bold;
+}
+
 /* font-family: 'Dokdo', cursive;
-font-family: 'Nunito', sans-serif;*/
+font-family: 'Nunito', sans-serif;
+	'Overpass', sans-serif
+	'Pacifico', cursive;
+*/

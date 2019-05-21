@@ -1,185 +1,315 @@
 <?php
-    session_start();
-?>
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
 
-<!doctype html>
-<html lang="en">
+/*
+ *---------------------------------------------------------------
+ * APPLICATION ENVIRONMENT
+ *---------------------------------------------------------------
+ *
+ * You can load different configurations depending on your
+ * current environment. Setting the environment also influences
+ * things like logging and error reporting.
+ *
+ * This can be set to anything, but default usage is:
+ *
+ *     development
+ *     testing
+ *     production
+ *
+ * NOTE: If you change these, also change the error_reporting() code below
+ */
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
-	<head>
-		<meta charset="utf-8">
-		<title>Food Booking</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<link rel="stylesheet" href="css/style.css">
-		<link href="https://fonts.googleapis.com/css?family=Pacifico|Patua+One|Overpass" rel="stylesheet">
-	</head>
-	
-	<body>
-		<div id="header">
-			<header>
-				<a href="index.php"><img class="logo" src="images/FileIHOP_Restaurant_logo.png" alt="Logo for the restaurant">
-			</header>
-			
-			<nav id="menu">
-				<ul>
-					<li><a href="https://uq.edu.au/">Categories</a></li>
-					<li><a href="https://uq.edu.au/">Delivery</a></li>
-					<li><a href="https://uq.edu.au/">My Order</a></li>
-					<li><a href="https://uq.edu.au/">Contact Us</a></li>
-					<li><a href="locationPage.php"><img src="images/Location-symbol.png" alt="Location icon"></a></li>
-					<?php if (isset($_SESSION["username"])): ?>
-						<li><a href="profile.php"><img src="images/Account.png" alt="Account icon"></a></li>
-					<?php else: ?>
-						<li><a class="btn btn-outline-primary" href="loginForm.php" style="color: blue">Sign in</a></li>
-					<?php endif ?>
-				</ul>
-			</nav>
-		</div>
-		<?php if (isset($_SESSION["username"])): ?>
-			<div id="searchDiv">
-				<input type="text" class="form-control" id="searchBar" placeholder="Search for restaurants or cuisines">
-				<button type="button" class="btn btn-warning">Search</button>
-			</div>
-		<?php else: ?>
-			<style type="text/css">
-				#carouselExampleControls{
-					margin-top: 140px;
-				}
-			</style>
-		<?php endif ?>
-		<div id="container">
-			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-				</ol>
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="images/BurgerAd.jpg" class="d-block w-100" alt="Advertisement for dish one">
-					</div>
-					<div class="carousel-item">
-						<img src="images/PancakeAd.jpg" class="d-block w-100" alt="Advertisement for dish two">
-					</div>
-					<div class="carousel-item">
-						<img src="images/SushiAd.jpg" class="d-block w-100" alt="Advertisement for dish three">
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-			</div>
-		</div>
-		
-		<?php if (isset($_SESSION["username"])): ?>
-		<section class="Restaurant-Container">
-			<h1>Popular Restaurants</h1>
-			<div class="RestDish">
-				<a href="https://uq.edu.au/">
-					<div class="Dishes">
-						<img src="images/Salad.jpg" alt="Advertising of this store">
-						<h3>Restaurant One</h3>
-						<p>4.6 ★ (320 Reviews)</p>
-						<span class="badge badge-secondary">American</span>
-						<span class="badge badge-secondary">Salad</span>
-					</div>
-				</a>
-				<a href="https://uq.edu.au/">
-					<div class="Dishes">
-						<img src="images/IndianFood.jpg" alt="Advertising of this store">
-						<h3>Restaurant Two</h3>
-						<p>4.2 ★ (48 Reviews)</p>
-						<span class="badge badge-secondary">Indian</span>
-						<span class="badge badge-secondary">Healthy</span>
-					</div>
-				</a>
-				<a href="https://uq.edu.au/">
-					<div class="Dishes">
-						<img src="images/FastFood.jpg" alt="Advertising of this store">
-						<h3>Restaurant Three</h3>
-						<p>3.9 ★ (16 Reviews)</p>
-						<span class="badge badge-secondary">Fast Food</span>
-					</div>
-				</a>
-			</div>
-		</section>
-		
-		<section class="Restaurant-Container">
-			<h1>Guess You Like</h1>
-			<div class="RestDish">
-				<a href="https://uq.edu.au/">
-					<div class="Dishes">
-						<img src="images/Seafood.jpg" alt="Advertising of this store">
-						<h3>Restaurant Four</h3>
-						<p>4.2 ★ (416 Reviews)</p>
-						<span class="badge badge-secondary">Seafood</span>
-						<span class="badge badge-secondary">Thai</span>
-					</div>
-				</a>
-				<a href="https://uq.edu.au/">
-					<div class="Dishes">
-						<img src="images/ChineseFood.jpg" alt="Advertising of this store">
-						<h3>Restaurant Five</h3>
-						<p>4.4 ★ (72 Reviews)</p>
-						<span class="badge badge-secondary">Chinese</span>
-					</div>
-				</a>
-				<a href="https://uq.edu.au/">
-					<div class="Dishes">
-						<img src="images/Vegan.jpg" alt="Advertising of this store">
-						<h3>Restaurant Six</h3>
-						<p>3.8 ★ (69 Reviews)</p>
-						<span class="badge badge-secondary">Vegan</span>
-						<span class="badge badge-secondary">Healthy</span>
-					</div>
-				</a>
-			</div>
-		</section>
-		<?php else: ?>
-            <p class="text-center">To read more information about restaurants, please sign on first.</p>
-        <?php endif ?>
-	</body>	
-	<footer>
-		<div>
-			<h2>Join Us</h2>
-			<ul>
-				<li><a href="https://uq.edu.au/">Restaurant Partner</a></li>
-				<li><a href="https://uq.edu.au/">Delivery Partner</a></li>
-				<li><a href="https://uq.edu.au/">About Us</a></li>
-			</ul>
-		</div>
-		<div>
-			<h2>Service Hotline</h2>
-			<p>123-456-7890<br>098-765-4321</p>
-		</div>
-		<div>
-			<a href="https://uq.edu.au/"><img src="images/Facebook.png" alt="Picture of facebook"></a>
-			<a href="https://uq.edu.au/"><img src="images/Twitter.jpg" alt="Picture of twitter"></a>
-			<a href="https://uq.edu.au/"><img src="images/Youtube.png" alt="Picture of youtube"></a>
-		</div>
-	</footer>
-</html>
+/*
+ *---------------------------------------------------------------
+ * ERROR REPORTING
+ *---------------------------------------------------------------
+ *
+ * Different environments will require different levels of error reporting.
+ * By default development will show errors but testing and live will hide them.
+ */
+switch (ENVIRONMENT)
+{
+	case 'development':
+		error_reporting(-1);
+		ini_set('display_errors', 1);
+	break;
 
-<!-- References:
-	https://commons.wikimedia.org/wiki/File:IHOP_Restaurant_logo.svg
-	https://commons.wikimedia.org/wiki/File:Location-alt-512.png
-	https://zh.wikipedia.org/wiki/File:Ic_account_circle_48px.svg
-	https://commons.wikimedia.org/wiki/File:Magnifying_glass_icon.svg
-	https://pixabay.com/photos/seafood-platter-crustaceans-food-1232389/
-	https://www.pexels.com/photo/chinese-food-365136/
-	https://pixabay.com/photos/curry-vegetables-vegetarian-cook-1819752/
-	https://pixabay.com/photos/salad-fresh-veggies-vegetables-791891/
-	https://commons.wikimedia.org/wiki/File:Indian-Food-wikicont.jpg
-	https://pixabay.com/photos/pizza-baking-fast-food-lunch-u-2000595/
-	https://www.foodbeast.com/news/shelf-stable-pancake-batter/
-	http://www.sushinagoya.com/newsletter_dec_13.htm
-	http://ffastfoodblog.blogspot.com/2012/10/advertisements.html
-	https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
---> 
+	case 'testing':
+	case 'production':
+		ini_set('display_errors', 0);
+		if (version_compare(PHP_VERSION, '5.3', '>='))
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
+		}
+		else
+		{
+			error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
+		}
+	break;
+
+	default:
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'The application environment is not set correctly.';
+		exit(1); // EXIT_ERROR
+}
+
+/*
+ *---------------------------------------------------------------
+ * SYSTEM DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * This variable must contain the name of your "system" directory.
+ * Set the path if it is not in the same directory as this file.
+ */
+	$system_path = 'system';
+
+/*
+ *---------------------------------------------------------------
+ * APPLICATION DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * If you want this front controller to use a different "application"
+ * directory than the default one you can set its name here. The directory
+ * can also be renamed or relocated anywhere on your server. If you do,
+ * use an absolute (full) server path.
+ * For more info please see the user guide:
+ *
+ * https://codeigniter.com/user_guide/general/managing_apps.html
+ *
+ * NO TRAILING SLASH!
+ */
+	$application_folder = 'application';
+
+/*
+ *---------------------------------------------------------------
+ * VIEW DIRECTORY NAME
+ *---------------------------------------------------------------
+ *
+ * If you want to move the view directory out of the application
+ * directory, set the path to it here. The directory can be renamed
+ * and relocated anywhere on your server. If blank, it will default
+ * to the standard location inside your application directory.
+ * If you do move this, use an absolute (full) server path.
+ *
+ * NO TRAILING SLASH!
+ */
+	$view_folder = '';
+
+
+/*
+ * --------------------------------------------------------------------
+ * DEFAULT CONTROLLER
+ * --------------------------------------------------------------------
+ *
+ * Normally you will set your default controller in the routes.php file.
+ * You can, however, force a custom routing by hard-coding a
+ * specific controller class/function here. For most applications, you
+ * WILL NOT set your routing here, but it's an option for those
+ * special instances where you might want to override the standard
+ * routing in a specific front controller that shares a common CI installation.
+ *
+ * IMPORTANT: If you set the routing here, NO OTHER controller will be
+ * callable. In essence, this preference limits your application to ONE
+ * specific controller. Leave the function name blank if you need
+ * to call functions dynamically via the URI.
+ *
+ * Un-comment the $routing array below to use this feature
+ */
+	// The directory name, relative to the "controllers" directory.  Leave blank
+	// if your controller is not in a sub-directory within the "controllers" one
+	// $routing['directory'] = '';
+
+	// The controller class file name.  Example:  mycontroller
+	// $routing['controller'] = '';
+
+	// The controller function you wish to be called.
+	// $routing['function']	= '';
+
+
+/*
+ * -------------------------------------------------------------------
+ *  CUSTOM CONFIG VALUES
+ * -------------------------------------------------------------------
+ *
+ * The $assign_to_config array below will be passed dynamically to the
+ * config class when initialized. This allows you to set custom config
+ * items or override any default config values found in the config.php file.
+ * This can be handy as it permits you to share one application between
+ * multiple front controller files, with each file containing different
+ * config values.
+ *
+ * Un-comment the $assign_to_config array below to use this feature
+ */
+	// $assign_to_config['name_of_config_item'] = 'value of config item';
+
+
+
+// --------------------------------------------------------------------
+// END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
+// --------------------------------------------------------------------
+
+/*
+ * ---------------------------------------------------------------
+ *  Resolve the system path for increased reliability
+ * ---------------------------------------------------------------
+ */
+
+	// Set the current directory correctly for CLI requests
+	if (defined('STDIN'))
+	{
+		chdir(dirname(__FILE__));
+	}
+
+	if (($_temp = realpath($system_path)) !== FALSE)
+	{
+		$system_path = $_temp.DIRECTORY_SEPARATOR;
+	}
+	else
+	{
+		// Ensure there's a trailing slash
+		$system_path = strtr(
+			rtrim($system_path, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		).DIRECTORY_SEPARATOR;
+	}
+
+	// Is the system path correct?
+	if ( ! is_dir($system_path))
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: '.pathinfo(__FILE__, PATHINFO_BASENAME);
+		exit(3); // EXIT_CONFIG
+	}
+
+/*
+ * -------------------------------------------------------------------
+ *  Now that we know the path, set the main path constants
+ * -------------------------------------------------------------------
+ */
+	// The name of THIS file
+	define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
+
+	// Path to the system directory
+	define('BASEPATH', $system_path);
+
+	// Path to the front controller (this file) directory
+	define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
+
+	// Name of the "system" directory
+	define('SYSDIR', basename(BASEPATH));
+
+	// The path to the "application" directory
+	if (is_dir($application_folder))
+	{
+		if (($_temp = realpath($application_folder)) !== FALSE)
+		{
+			$application_folder = $_temp;
+		}
+		else
+		{
+			$application_folder = strtr(
+				rtrim($application_folder, '/\\'),
+				'/\\',
+				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			);
+		}
+	}
+	elseif (is_dir(BASEPATH.$application_folder.DIRECTORY_SEPARATOR))
+	{
+		$application_folder = BASEPATH.strtr(
+			trim($application_folder, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		);
+	}
+	else
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+		exit(3); // EXIT_CONFIG
+	}
+
+	define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
+
+	// The path to the "views" directory
+	if ( ! isset($view_folder[0]) && is_dir(APPPATH.'views'.DIRECTORY_SEPARATOR))
+	{
+		$view_folder = APPPATH.'views';
+	}
+	elseif (is_dir($view_folder))
+	{
+		if (($_temp = realpath($view_folder)) !== FALSE)
+		{
+			$view_folder = $_temp;
+		}
+		else
+		{
+			$view_folder = strtr(
+				rtrim($view_folder, '/\\'),
+				'/\\',
+				DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+			);
+		}
+	}
+	elseif (is_dir(APPPATH.$view_folder.DIRECTORY_SEPARATOR))
+	{
+		$view_folder = APPPATH.strtr(
+			trim($view_folder, '/\\'),
+			'/\\',
+			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
+		);
+	}
+	else
+	{
+		header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
+		echo 'Your view folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
+		exit(3); // EXIT_CONFIG
+	}
+
+	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
+
+/*
+ * --------------------------------------------------------------------
+ * LOAD THE BOOTSTRAP FILE
+ * --------------------------------------------------------------------
+ *
+ * And away we go...
+ */
+require_once BASEPATH.'core/CodeIgniter.php';
