@@ -1,4 +1,4 @@
-# INFS3202-WebDevelopment
+# Food Delivery Website
 
 To see the actual website, please use the url: https://infs3202-35966830.uqcloud.net
 
