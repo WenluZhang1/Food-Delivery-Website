@@ -1,5 +1,4 @@
 $(document).ready(function () {
-	
 	$('#inputPassword4').blur(function() {
 		var password = $(this).val();
 		
@@ -143,4 +142,5 @@ $(document).ready(function () {
 		})
 		
 	});
+
 });

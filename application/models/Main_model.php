@@ -7,7 +7,7 @@
 		}
 
 		public function authenticate($username, $password) {
-			$query = $this->db->query("SELECT * FROM users WHERE username = '" . $username . "'");
+			$query = $this->db->query("SELECT * FROM users WHERE username = " . $this->db->escape($username));
 		
 			$row = $query->row_array();
 
@@ -17,7 +17,7 @@
 
 					return FALSE;
 				}
-				if($password == $row['password']){
+				if(password_verify($password, $row['password'])){
 					return TRUE;
 				} else{
 					echo "<style> #passwordInvalid1{display: block;} </style>";
@@ -51,7 +51,7 @@
 
 
 		public function check_signup_username($username){
-			$username_query = $this->db->query("SELECT * FROM users WHERE username = '" . $username . "'");
+			$username_query = $this->db->query("SELECT * FROM users WHERE username = " . $this->db->escape($username));
 			$row = $username_query->row_array();
 			if(isset($row)){
 				return 1;
@@ -61,7 +61,7 @@
 		}
 
 		public function check_signup_email($email){
-			$email_query = $this->db->query("SELECT * FROM users WHERE email = '" . $email . "'");
+			$email_query = $this->db->query("SELECT * FROM users WHERE email = " . $this->db->escape($email));
 			$row = $email_query->row_array();
 			if(isset($row)){
 				return 1;
@@ -94,8 +94,8 @@
 				return false;
 			}
 
-			$queryUser = $this->db->query("SELECT * FROM users WHERE username = '" . $username . "'");
-			$queryEmail = $this->db->query("SELECT * FROM users WHERE email = '" . $email . "'");
+			$queryUser = $this->db->query("SELECT * FROM users WHERE username = " . $this->db->escape($username));
+			$queryEmail = $this->db->query("SELECT * FROM users WHERE email = " . $this->db->escape($email));
 			$DuplicateUser = $queryUser->row();
 			$DuplicateEmail = $queryEmail->row();
 
@@ -122,7 +122,7 @@
 		}
 
 		public function get_search($keyword){
-			$query = $this->db->query("SELECT * FROM restaurants WHERE (name LIKE '%" . $keyword . "%' OR tags LIKE '%".$keyword."%') ");
+			$query = $this->db->query("SELECT * FROM restaurants WHERE (name LIKE '%" . $this->db->escape_like_str($keyword) . "%' OR tags LIKE '%".$this->db->escape_like_str($keyword)."%') ");
 			return $query->result();
 		}
 
@@ -137,7 +137,7 @@
 		}
 
 		public function add_new_dish($name, $dishName, $dishDescription, $dishPrice, $dishCalories){
-			$query = $this->db->query("SELECT * FROM meals WHERE Rname ='".$name."' AND dishName = '".$dishName."'");
+			$query = $this->db->query("SELECT * FROM meals WHERE Rname ='".$name."' AND dishName = ".$this->db->escape($dishName));
 			if($query->row()){
 				return false;
 			} else{
@@ -198,5 +198,55 @@
 			$this->db->where('username', $username);
 			$this->db->update('users', $data);
 		}
+
+		public function save_security_question($username, $answerOne, $answerTwo){
+			$dataOne = array(
+				'username' => $username,
+				'question' => "What is your mother name?",
+				'answer' => $answerOne
+			);
+			$dataTwo = array(
+				'username' => $username,
+				'question' => "What is your father name?",
+				'answer' => $answerTwo
+			);
+
+			$this->db->insert('security_questions', $dataOne);
+			$this->db->insert('security_questions', $dataTwo);
+		}
+
+		public function check_security_question($username, $answerOne, $answerTwo){
+			$query = $this->db->query("SELECT * FROM security_questions WHERE username =". $this->db->escape($username));
+			$row = $query->row_array();
+			if (!isset($row)) {
+				echo "<style> #usernameInvalidForgot{display: block;} </style>";
+				return FALSE;
+			} 
+			$queryOne = $this->db->query("SELECT * FROM security_questions WHERE username =". $this->db->escape($username) . "AND question = 'What is your mother name?'");
+			$rowOne = $queryOne->row_array();
+			$queryTwo = $this->db->query("SELECT * FROM security_questions WHERE username =". $this->db->escape($username) . "AND question = 'What is your father name?'");
+			$rowTwo = $queryTwo->row_array();
+			if(isset($rowOne) && $rowOne['answer'] == $answerOne){
+				if(isset($rowTwo) && $rowTwo['answer'] == $answerTwo){
+					return TRUE;
+				} else{
+					echo "<style> #questionTwoInvalid{display: block;} </style>";
+					return FALSE;
+				}
+			} else{
+				echo "<style> #questionOneInvalid{display: block;} </style>";
+				return FALSE;
+			}
+
+		}
+
+		public function new_password($username, $password){
+			$data = array(
+       				 'password' => $password
+			);
+			$this->db->where('username', $username);
+			$this->db->update('users', $data);
+		}
+
 	}
 

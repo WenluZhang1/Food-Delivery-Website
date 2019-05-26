@@ -3,6 +3,8 @@
 				<input type="text" class="form-control" id="searchBar" placeholder="Search for restaurants or cuisines" name="keyword">
 				<button type="submit" class="btn btn-warning">Search</button>
 			</form>
+			<div id="searchResult">
+			</div>
 		<?php else: ?>
 			<style type="text/css">
 				#carouselExampleControls{
@@ -94,5 +96,5 @@
             <p class="text-center">To read more information about restaurants, please sign on first.</p>
         <?php endif ?>
 		<script src="<?php echo base_url(); ?>js/jquery-3.3.1.min.js"></script>
-		<script src="<?php echo base_url(); ?>js/javaScript.js"></script>
+		<script src="<?php echo base_url(); ?>js/mainScript.js"></script>
 	</body>	

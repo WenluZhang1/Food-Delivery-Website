@@ -37,7 +37,7 @@
 					<input type="checkbox" <?php if (isset($_COOKIE["username"])): echo "checked"; endif ?> name="remember" class="form-check-input" id="exampleCheck1">
 					<label class="form-check-label" for="exampleCheck1">Remember my account</label>
 				</div>
-				<a href="https://uq.edu.au/">Forgot Password?</a>
+				<a href="loadForgotPassword">Forgot Password?</a>
 				<a href="loadRegistration">Register a new account</a>
 				<button type="submit" class="btn btn-primary">Login</button>
 			</form>

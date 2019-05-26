@@ -68,7 +68,7 @@
 }
 
 #searchDiv{
-	margin: 140px 20px 30px 50px;
+	margin: 140px 20px 0px 50px;
 	display: flex;
 }
 
@@ -83,6 +83,7 @@
 }
 
 #carouselExampleControls{
+	padding-top: 30px;
 	width: 90%;
 	margin: 0 auto;
 	z-index: 1;
@@ -339,6 +340,34 @@ footer li{
 	font-size: 20px;
 	font-weight: bold;
 }
+
+#pdfButton {
+	height: 40px; 
+	margin-left: 150px;
+}
+
+#searchResult{
+	margin-left: 50px;
+	margin-right: 250px;
+	font-family: 'Dokdo', cursive;
+}
+
+#searchResult li{
+	list-style: none;
+	font-size: 22px;
+	font-weight: bold;
+	border: 1px solid #d6d6c2;
+	border-radius: 10px;
+	padding: 10px 0px 10px 0px;
+}
+
+#searchResult a{
+	color: #ffa31a;
+	padding-left:15px;
+	text-decoration: none;
+}
+
+
 
 /* font-family: 'Dokdo', cursive;
 font-family: 'Nunito', sans-serif;

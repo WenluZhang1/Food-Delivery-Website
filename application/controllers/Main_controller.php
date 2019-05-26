@@ -74,6 +74,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('footer');
 		}
 
+		public function loadSecurityQuestion(){
+			if(!file_exists(APPPATH.'views/security_questions.php')){
+				show_404();
+			}
+			$this->load->view('security_questions');
+		}
+
+		public function loadForgotPassword(){
+			if(!file_exists(APPPATH.'views/forgotPassword.php')){
+				show_404();
+			}
+			$this->load->view('forgotPassword');
+		}
+		
+		public function loadSetPassword(){
+			if(!file_exists(APPPATH.'views/setPassword.php')){
+				show_404();
+			}
+			$this->load->view('setPassword');
+		}
+
 		public function login() {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
@@ -104,15 +125,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$suburbNew = $this->input->post('suburb');
 			$stateNew = $this->input->post('state');
 			$postcodeNew = $this->input->post('postcode');
+			
 
-			$newAccount = $this->main_model->new_account($usernameNew, $passwordNew, $phoneNew, $emailNew, $addressNew, $suburbNew, $stateNew, $postcodeNew);
+			$newAccount = $this->main_model->new_account($usernameNew, password_hash($passwordNew, PASSWORD_BCRYPT), $phoneNew, $emailNew, $addressNew, $suburbNew, $stateNew, $postcodeNew);
 			if($newAccount == 0){
 				$_SESSION['registrateFailed'] = true;
 				redirect(base_url() . "Main_controller/loadRegistration");
 			} else{
+				$_SESSION['template_username'] = $usernameNew;
 				$_SESSION['registered'] = true;
-				$this->sendEmail($usernameNew, $emailNew);
-				redirect(base_url() . "Main_controller/loadSignin");
+				$this->sendEmail($usernameNew,  $emailNew);
+				redirect(base_url() . "Main_controller/loadSecurityQuestion");
+				
 			}
 		}
 
@@ -245,6 +269,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function vertify_email($username){
 			$this->main_model->vertify_account($username);
 			redirect(base_url() . "Main_controller/loadSignin");
+		}
+
+		public function save_security(){
+			$answerOne = $this->input->post('questionOne');
+			$answerTwo = $this->input->post('questionTwo');		
+			$this->main_model->save_security_question($_SESSION['template_username'], $answerOne, $answerTwo);
+			unset($_SESSION['template_username']);
+			redirect(base_url() . "Main_controller/loadSignin");
+		}
+
+		public function check_security(){
+			$user = $this->input->post('usernameForgot');
+			$ansOne = $this->input->post('questionOneForgot');
+			$ansTwo = $this->input->post('questionTwoForgot');
+
+			if($this->main_model->check_security_question($user, $ansOne, $ansTwo)){
+				$_SESSION['securityPassUser'] = $user;
+				$this->loadSetPassword();
+			} else{
+				$this->loadForgotPassword();
+			}
+		}
+
+		public function set_new_password(){
+			$settedPassword = $this->input->post('setNewPassword');
+			$this->main_model->new_password($_SESSION['securityPassUser'], password_hash($settedPassword, PASSWORD_BCRYPT));
+			unset($_SESSION['securityPassUser']);
+			redirect(base_url() . "Main_controller/loadSignin");
+		}
+
+
+		public function loadPDF(){
+			$this->load->library('Pdf');
+			if(isset($_SESSION["username"])){
+				$data['orderDetail'] = $this->main_model->get_orders($_SESSION['username']);
+			}else{
+				$data['orderDetail'] = null;
+
+			}
+			$this->load->view('pdf_file', $data);
+		}
+
+		public function autoSearch(){
+			$keyword = $this->input->get('value');
+			$restaurant = $this->main_model->get_search($keyword);
+			$result = '<ul>';
+			foreach($restaurant as $row){
+				$result .= "<li><a href='".base_url() ."Main_controller/loadRestaurant/". $row-> name."'>". $row->name. "</a></li>";
+			}
+			$result .= "</ul>";
+			echo $result;
 		}
 	}
 

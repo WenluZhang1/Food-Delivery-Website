@@ -17,6 +17,10 @@
 			";
 		}?>		
 	</div>
+	<form action = 'https://infs3202-35966830.uqcloud.net/Main_controller/loadPDF' >
+		<button class='btn btn-primary' id = "pdfButton" type='submit'>Generate payment invoice pdf</button>
+	</form>
+
 <?php else: ?>
 	<p class="text-center" style="margin-top:140px;">To read more information about restaurants, please sign on first.</p>
 <?php endif ?>
